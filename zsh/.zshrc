@@ -56,7 +56,7 @@ alias psu='ps -fu $USER'
 # Mercurial
 alias hs='hg st'
 alias hd='hg diff --color=always | less -R'
-alias hh='hg hist -l 5'
+alias hh='hg glog -l 5'
 alias hqs='hg qser'
 alias hqt='hg qtop'
 alias hqd='hg qdiff --color=always | less -R'
