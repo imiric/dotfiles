@@ -39,6 +39,18 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Move over displayed instead of physical lines
+nnoremap j gj
+nnoremap k gk
+
+" Getting rid of the help key
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" No more shift!
+nnoremap ; :
+
 set noerrorbells                  " I
 set vb t_vb=                      " REALLY
 if has('autocmd') && has('gui')   " HATE
@@ -114,10 +126,21 @@ set background=dark " When set to "dark", Vim will try to use colors that look
                     " Any other value is illegal.
  
 set mouse=a         " Enable the use of the mouse.
- 
+
+" Adding a column indicator and changing its color
+set colorcolumn=85
+au ColorScheme * highlight ColorColumn ctermbg=8
+
 filetype plugin indent on
 syntax on
 set nowrap
+
+" Disabling highlighting after search
+nnoremap <leader><space> :noh<cr>
+
+" Using tab to jump between bracket pairs with tab
+nnoremap <tab> %
+vnoremap <tab> %
 
 " IMPORTANT: Uncomment one of the following lines to force
 " using 256 colors (or 88 colors) if your terminal supports it,
@@ -205,8 +228,8 @@ endif
 """ } VUNDLE SETTINGS
 
 " Movement between tabs OR buffers
-nnoremap L :call MyNext()<CR>
-nnoremap H :call MyPrev()<CR>
+nnoremap <silent> L :call MyNext()<CR>
+nnoremap <silent> H :call MyPrev()<CR>
 
 " MyNext() and MyPrev(): Movement between tabs OR buffers
 function! MyNext()
