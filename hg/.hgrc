@@ -1,0 +1,19 @@
+# This is a Mercurial configuration file
+[ui]
+username = Ivan Miric <imiric@gmail.com>
+editor = vi
+
+[extensions]
+color =
+rebase = 
+bookmarks =
+mq =
+graphlog =
+hgshelve=~/.hgext/hgshelve.py
+record =
+
+[bookmarks]
+track.current = True
+
+[diff]
+git = 1
