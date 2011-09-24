@@ -1,0 +1,10 @@
+[user]
+	name = Ivan Miric
+	email = imiric@gmail.com
+[color]
+	ui = auto
+[diff]
+	renames = copies
+[core]
+	autocrlf = input
+	safecrlf = true
