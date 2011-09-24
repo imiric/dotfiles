@@ -216,6 +216,7 @@ endif
     Bundle 'docunext/closetag.vim'
 
     Bundle 'kevinw/pyflakes-vim'
+    let g:pyflakes_use_quickfix = 0
 
     Bundle 'scrooloose/nerdcommenter'
 
@@ -224,6 +225,9 @@ endif
     Bundle 'majutsushi/tagbar'
 
     Bundle 'vcscommand.vim'
+
+    Bundle 'mileszs/ack.vim'
+    nnoremap <leader>a :Ack 
   """ } BUNDLES
 """ } VUNDLE SETTINGS
 
