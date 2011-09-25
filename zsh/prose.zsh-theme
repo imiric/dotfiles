@@ -3,7 +3,7 @@ if [ "x$OH_MY_ZSH_HG" = "x" ]; then
 fi
 
 function virtualenv_info {
-    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+    [ $VIRTUAL_ENV ] && echo '['`basename $VIRTUAL_ENV`'] '
 }
 
 function prompt_char {

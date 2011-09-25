@@ -2,6 +2,11 @@
 [ui]
 username = Ivan Miric <imiric@gmail.com>
 editor = vi
+merge = vimdiff
+
+[merge-tools]
+vimdiff.executable = vim
+vimdiff.args = -d $base $local $output $other +close +close
 
 [extensions]
 color =
@@ -12,6 +17,10 @@ graphlog =
 hgshelve=~/.hgext/hgshelve.py
 record =
 prompt =
+hgcontains = /home/ivan/src/hg-contains/contains.py
+
+[alias]
+sglog = glog --style=/home/ivan/src/mercurial-cli-templates/map-cmdline.sglog
 
 [bookmarks]
 track.current = True
