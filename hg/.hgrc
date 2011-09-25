@@ -11,6 +11,7 @@ mq =
 graphlog =
 hgshelve=~/.hgext/hgshelve.py
 record =
+prompt =
 
 [bookmarks]
 track.current = True
