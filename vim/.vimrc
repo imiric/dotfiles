@@ -5,7 +5,6 @@
 set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
 
 set nocompatible               " be iMproved
-filetype off                   " required for vundle
 
 set pastetoggle=<F2>
 
@@ -131,8 +130,6 @@ set mouse=a         " Enable the use of the mouse.
 set colorcolumn=85
 au ColorScheme * highlight ColorColumn ctermbg=8
 
-filetype plugin indent on
-syntax on
 set nowrap
 
 " Disabling highlighting after search
@@ -213,7 +210,8 @@ endif
 
     Bundle 'Raimondi/delimitMate'
 
-    Bundle 'docunext/closetag.vim'
+    "Bundle 'docunext/closetag.vim'
+    Bundle 'tpope/vim-ragtag'
 
     Bundle 'kevinw/pyflakes-vim'
     let g:pyflakes_use_quickfix = 0
@@ -228,6 +226,17 @@ endif
 
     Bundle 'mileszs/ack.vim'
     nnoremap <leader>a :Ack 
+
+    Bundle 'JumpToLastOccurrence'
+    let g:JumpToLastOccurrence_Leader = ',,'
+    
+    Bundle 'mhz/vim-matchit'
+
+    Bundle 'kchmck/vim-coffee-script'
+
+    Bundle 'wavded/vim-stylus'
+
+    Bundle 'statianzo/vim-jade'
   """ } BUNDLES
 """ } VUNDLE SETTINGS
 
@@ -254,3 +263,7 @@ function! MyPrev()
         execute ":bprev"
     endif
 endfunction
+
+filetype off                   " required for vundle
+syntax on
+filetype plugin indent on
