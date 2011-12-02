@@ -52,6 +52,8 @@ alias ll='ls -al'
 alias l='ls -alh'
 alias ls='ls --color=auto '
 
+alias t='todo.pl'
+
 alias md='mkdir -p'
 alias rd=rmdir
 alias ..='cd ..'
