@@ -9,7 +9,7 @@ set nocompatible               " be iMproved
 set pastetoggle=<F2>
 
 " close buffers with Ctrl-F4 using bufferkill
-nnoremap <F4> :BD<CR>
+nnoremap <silent> <F4> :BD<CR>
 
 " disable command line history
 map q: :q
@@ -49,6 +49,12 @@ vnoremap <F1> <ESC>
 
 " No more shift!
 nnoremap ; :
+
+" Folding
+set foldmethod=indent
+set foldnestmax=2
+nnoremap <space> za
+vnoremap <space> zf
 
 set noerrorbells                  " I
 set vb t_vb=                      " REALLY
@@ -135,9 +141,80 @@ set nowrap
 " Disabling highlighting after search
 nnoremap <leader><space> :noh<cr>
 
-" Using tab to jump between bracket pairs with tab
+" Using tab to jump between bracket pairs
 nnoremap <tab> %
 vnoremap <tab> %
+
+" If file is already opened, switch to its tab
+set switchbuf=usetab,newtab
+
+nnoremap <silent> <leader>1 :tabnext 1<cr>
+nnoremap <silent> <leader>2 :tabnext 2<cr>
+nnoremap <silent> <leader>3 :tabnext 3<cr>
+nnoremap <silent> <leader>4 :tabnext 4<cr>
+nnoremap <silent> <leader>5 :tabnext 5<cr>
+nnoremap <silent> <leader>6 :tabnext 6<cr>
+nnoremap <silent> <leader>7 :tabnext 7<cr>
+nnoremap <silent> <leader>8 :tabnext 8<cr>
+nnoremap <silent> <leader>9 :tabnext 9<cr>
+
+" Cycling between tabs
+au TabLeave * :let g:last_tab=tabpagenr()
+fun! <sid>LastTab()
+    if !exists("g:last_tab")
+        return
+    endif
+    exec "tabn" g:last_tab
+endfun
+nmap <silent> <leader><leader> :call <sid>LastTab()<cr>
+
+" Django stuff
+" let g:last_relative_dir = ''
+" nnoremap <leader>1 :call RelatedFile ("models.py")<cr>
+" nnoremap <leader>2 :call RelatedFile ("views.py")<cr>
+" nnoremap <leader>3 :call RelatedFile ("urls.py")<cr>
+" nnoremap <leader>4 :call RelatedFile ("admin.py")<cr>
+" nnoremap <leader>5 :call RelatedFile ("tests.py")<cr>
+" nnoremap <leader>6 :call RelatedFile ( "templates/" )<cr>
+" nnoremap <leader>7 :call RelatedFile ( "templatetags/" )<cr>
+" nnoremap <leader>8 :call RelatedFile ( "management/" )<cr>
+" nnoremap <leader>0 :tabnew settings.py<cr>
+" nnoremap <leader>9 :tabnew urls.py<cr>
+" 
+" fun! RelatedFile(file)
+"     "This is to check that the directory looks djangoish
+"     if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
+"         let buffername = bufname(a:file)
+"         if buffername == ""
+"             exec "tabnew %:h/" . a:file
+"         else
+"             let buffernumber = bufnr(buffername) 
+"             exec "tabnext " . buffernumber
+"         endif
+"         let g:last_relative_dir = expand("%:h") . '/'
+"         return ''
+"     endif
+"     if g:last_relative_dir != ''
+"         let buffername = bufname(a:file)
+"         if buffername == ""
+"             exec "tabnew " . g:last_relative_dir . a:file
+"         else
+"            let buffernumber = bufnr(buffername) 
+"            exec "tabnext " . buffernumber
+"         endif
+"         return ''
+"     endif
+"     echo "Cant determine where relative file is : " . a:file
+"     return ''
+" endfun
+" 
+" fun SetAppDir()
+"     if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
+"         let g:last_relative_dir = expand("%:h") . '/'
+"         return ''
+"     endif
+" endfun
+" autocmd BufEnter *.py call SetAppDir()
 
 " IMPORTANT: Uncomment one of the following lines to force
 " using 256 colors (or 88 colors) if your terminal supports it,
@@ -206,6 +283,15 @@ endif
     Bundle 'wincent/Command-T'
     nnoremap <leader>t :CommandT<cr>
 
+    "Bundle 'kien/ctrlp.vim'
+    "let g:ctrlp_custom_ignore = '\.pyc$'
+    "let g:ctrlp_map = '<leader>t'
+    ""let g:ctrlp_open_new_file = 1
+    ""let g:ctrlp_open_multi = '1t'
+    "let g:ctrlp_working_path_mode = 0
+    " The following line is used by Command-T or ctrlp and it breaks Vundle
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc
+
     Bundle 'jeetsukumaran/vim-filesearch'
 
     Bundle 'Raimondi/delimitMate'
@@ -237,6 +323,8 @@ endif
     Bundle 'wavded/vim-stylus'
 
     Bundle 'statianzo/vim-jade'
+
+    Bundle 'django.vim'
   """ } BUNDLES
 """ } VUNDLE SETTINGS
 

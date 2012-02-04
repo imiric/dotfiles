@@ -6,5 +6,5 @@
 [diff]
 	renames = copies
 [core]
-	autocrlf = input
+	autocrlf = false
 	safecrlf = true
