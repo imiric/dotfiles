@@ -26,6 +26,8 @@ export ZSH_THEME="mns"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 plugins=(git django ruby npm pip node command-coloring)
 
+setopt autocd
+
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
@@ -36,23 +38,24 @@ export C=/media/c
 export D=/media/d
 export DESKTOP=/media/d/Users/Ivan/Desktop
 export JAVA_HOME=/opt/java
-export PATH=${PATH}:${JAVA_HOME}/bin:/opt/ruby1.8/bin/:${HOME}/perl5/bin
+export PATH=${PATH}:${JAVA_HOME}/bin:/opt/ruby1.8/bin/:${HOME}/perl5/bin:${HOME}/.bin
 
 eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
 
 alias boar='nocorrect boar'
 alias npm='nocorrect npm'
 alias pip='nocorrect pip'
+alias cram='nocorrect cram'
 source /usr/bin/virtualenvwrapper.sh
 
 # general
 alias man='LC_ALL=C LANG=C man'
 alias f=finger
+alias ls='ls --color --group-directories-first'
 alias ll='ls -al'
 alias l='ls -alh'
-alias ls='ls --color=auto '
 
-alias t='todo.pl'
+alias t="python ~/.virtualenvs/t-fork/src/t-fork/t.py --task-dir $D/Users/Ivan/Dropbox/Work/tasks --list tasks"
 
 alias md='mkdir -p'
 alias rd=rmdir

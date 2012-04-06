@@ -20,6 +20,7 @@ record =
 prompt =
 hgcontains = /home/ivan/src/hg-contains/contains.py
 pager =
+hgext.extdiff =
 
 [alias]
 sglog = glog --style=/home/ivan/src/mercurial-cli-templates/map-cmdline.sglog
@@ -36,3 +37,9 @@ bitbucket.org = 24:9c:45:8b:9c:aa:ba:55:4e:01:6d:58:ff:e4:28:7d:2a:14:ae:3b
 
 [pager]
 pager = LESS='FSRX' less
+
+[extdiff]
+# if cwdiff is in your path, otherwise set to wherever you've installed cwdiff
+cmd.wdiff = cwdiff
+#add --no-color below, if you dislike colors!
+opts.wdiff = --diff --ab

@@ -50,6 +50,9 @@ vnoremap <F1> <ESC>
 " No more shift!
 nnoremap ; :
 
+" Execute file being edited with <Shift> + e:
+map <buffer> <S-e> :w<CR>:!/usr/bin/env python %<CR>
+
 " Folding
 set foldmethod=indent
 set foldnestmax=2
@@ -157,6 +160,8 @@ nnoremap <silent> <leader>6 :tabnext 6<cr>
 nnoremap <silent> <leader>7 :tabnext 7<cr>
 nnoremap <silent> <leader>8 :tabnext 8<cr>
 nnoremap <silent> <leader>9 :tabnext 9<cr>
+nnoremap <silent> - :tabprevious<cr>
+nnoremap <silent> = :tabnext<cr>
 
 " Cycling between tabs
 au TabLeave * :let g:last_tab=tabpagenr()
@@ -166,7 +171,7 @@ fun! <sid>LastTab()
     endif
     exec "tabn" g:last_tab
 endfun
-nmap <silent> <leader><leader> :call <sid>LastTab()<cr>
+nmap <silent> <bs> :call <sid>LastTab()<cr>
 
 " Django stuff
 " let g:last_relative_dir = ''
@@ -216,6 +221,10 @@ nmap <silent> <leader><leader> :call <sid>LastTab()<cr>
 " endfun
 " autocmd BufEnter *.py call SetAppDir()
 
+" Underline the current line with dashes in normal mode
+nnoremap <leader>- yyp<c-v>$r-
+nnoremap <leader>= yyp<c-v>$r=
+
 " IMPORTANT: Uncomment one of the following lines to force
 " using 256 colors (or 88 colors) if your terminal supports it,
 " but does not automatically use 256 colors by default.
@@ -264,6 +273,10 @@ endif
 
     "Easily quote/tag text
     Bundle 'surround.vim'
+    let g:surround_{char2nr('o')} = "**\r**"
+    
+    "Extends '.' to be used for plugin maps
+    Bundle 'tpope/vim-repeat'
 
     "Open file:linenumber files properly
     Bundle 'file-line'
@@ -290,7 +303,7 @@ endif
     ""let g:ctrlp_open_multi = '1t'
     "let g:ctrlp_working_path_mode = 0
     " The following line is used by Command-T or ctrlp and it breaks Vundle
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc
+    "set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc
 
     Bundle 'jeetsukumaran/vim-filesearch'
 
@@ -325,6 +338,10 @@ endif
     Bundle 'statianzo/vim-jade'
 
     Bundle 'django.vim'
+
+    Bundle 'Lokaltog/vim-powerline'
+    "let g:Powerline_symbols = 'fancy'
+    set laststatus=2
   """ } BUNDLES
 """ } VUNDLE SETTINGS
 
