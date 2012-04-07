@@ -15,10 +15,10 @@ rebase =
 bookmarks =
 mq =
 graphlog =
-hgshelve=~/.hgext/hgshelve.py
+hgshelve = ~/.hgext/hgshelve/hgshelve.py
 record =
-prompt =
-hgcontains = /home/ivan/src/hg-contains/contains.py
+prompt = ~/.hgext/hg-prompt/prompt.py
+hgcontains = ~/.hgext/hg-contains/contains.py
 pager =
 hgext.extdiff =
 

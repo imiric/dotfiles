@@ -5,6 +5,7 @@
 set fileencodings=ucs-bom,utf-8,cp936,big5,euc-jp,euc-kr,gb18030,latin1
 
 set nocompatible               " be iMproved
+set nocompatible               " be iMproved
 
 set pastetoggle=<F2>
 
@@ -264,6 +265,7 @@ endif
     "ring of copied text
     Bundle 'YankRing.vim'
     let g:yankring_history_file = '.yankring_history'
+    let g:yankring_manual_clipboard_check = 0
 
     "color matching Parenthesis
     Bundle 'Rainbow-Parenthsis-Bundle'
@@ -329,7 +331,7 @@ endif
     Bundle 'JumpToLastOccurrence'
     let g:JumpToLastOccurrence_Leader = ',,'
     
-    Bundle 'mhz/vim-matchit'
+    Bundle 'tsaleh/vim-matchit'
 
     Bundle 'kchmck/vim-coffee-script'
 

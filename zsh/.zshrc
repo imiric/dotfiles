@@ -40,7 +40,7 @@ export DESKTOP=/media/d/Users/Ivan/Desktop
 export JAVA_HOME=/opt/java
 export PATH=${PATH}:${JAVA_HOME}/bin:/opt/ruby1.8/bin/:${HOME}/perl5/bin:${HOME}/.bin
 
-eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
+#eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
 
 alias boar='nocorrect boar'
 alias npm='nocorrect npm'
