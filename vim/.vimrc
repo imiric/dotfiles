@@ -344,6 +344,8 @@ endif
     Bundle 'Lokaltog/vim-powerline'
     "let g:Powerline_symbols = 'fancy'
     set laststatus=2
+
+    Bundle 'guicolorscheme.vim'
   """ } BUNDLES
 """ } VUNDLE SETTINGS
 
