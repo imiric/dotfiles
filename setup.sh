@@ -27,6 +27,8 @@ mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/vundle.git ~/.vim/
 mkdir -p ~/.vim/colors && wget -O ~/.vim/colors/xoria256.vim "http://www.vim.org/scripts/download_script.php?src_id=15762"
 # run inside vim
 # :BundleInstall
+# Command-T setup
+cd ~/.vim/bundle/Command-T/ruby/command-t/ && ruby extconf.rb && make
 
 # mercurial
 mkdir -p ~/.hgext && hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgshelve
