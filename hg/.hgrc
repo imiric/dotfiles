@@ -23,7 +23,7 @@ pager =
 hgext.extdiff =
 
 [alias]
-sglog = glog --style=/home/ivan/src/mercurial-cli-templates/map-cmdline.sglog
+sglog = glog --style=/home/ivan/.hgext/mercurial-cli-templates/map-cmdline.sglog
 
 [bookmarks]
 track.current = True
