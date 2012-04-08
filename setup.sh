@@ -33,7 +33,7 @@ mkdir -p ~/.hgext && hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgsh
 hg clone https://bitbucket.org/sjl/hg-prompt ~/.hgext/hg-prompt
 hg clone https://bitbucket.org/resi/hg-contains ~/.hgext/hg-contains
 hg clone https://bitbucket.org/sjl/mercurial-cli-templates ~/.hgext/mercurial-cli-templates
-ln -s "$DOTFILESDIR"/hg/.hgrc ~/
+ln -s "$DOTFILESDIR"/mercurial/.hgrc ~/
 
 # git
 ln -s "$DOTFILESDIR"/git/.gitconfig ~/
