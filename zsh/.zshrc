@@ -11,7 +11,7 @@ export ZSH_THEME="mns"
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
@@ -39,6 +39,7 @@ export D=/media/d
 export DESKTOP=/media/d/Users/Ivan/Desktop
 export JAVA_HOME=/opt/java
 export PATH=${PATH}:${JAVA_HOME}/bin:/opt/ruby1.8/bin/:${HOME}/perl5/bin:${HOME}/.bin
+export PYTHONPATH=$PYTHONPATH:~/.pythonlib
 
 #eval $(perl -I$HOME/perl5/lib/perl5 -Mlocal::lib)
 

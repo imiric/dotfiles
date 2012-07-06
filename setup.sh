@@ -9,6 +9,10 @@ sudo rm /usr/bin/vi && ln -s /usr/bin/vim /usr/bin/vi
 # python
 sudo easy_install-2.7 pip
 sudo pip install virtualenv virtualenvwrapper
+mkdir -p ~/.pythonlib
+for f in "$DOTFILESDIR"/*.py; do
+    ln -s "$f" ~/.pythonlib/
+done
 
 # zsh
 git clone git://github.com/sjl/oh-my-zsh.git ~/.oh-my-zsh

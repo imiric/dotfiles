@@ -55,10 +55,14 @@ nnoremap ; :
 map <buffer> <S-e> :w<CR>:!/usr/bin/env python %<CR>
 
 " Folding
-set foldmethod=indent
-set foldnestmax=2
-nnoremap <space> za
-vnoremap <space> zf
+"set foldmethod=indent
+"set foldnestmax=2
+"nnoremap <space> za
+"vnoremap <space> zf
+
+" NERDCommenter
+nnoremap <Bslash><Bslash> :call NERDComment('n', 'toggle')<cr>
+vnoremap <Bslash><Bslash> :call NERDComment('x', 'toggle')<cr>
 
 set noerrorbells                  " I
 set vb t_vb=                      " REALLY
@@ -143,7 +147,7 @@ au ColorScheme * highlight ColorColumn ctermbg=8
 set nowrap
 
 " Disabling highlighting after search
-nnoremap <leader><space> :noh<cr>
+nnoremap <silent> <leader><space> :noh<cr>
 
 " Using tab to jump between bracket pairs
 nnoremap <tab> %
@@ -250,6 +254,7 @@ endif
   set runtimepath+=~/.vim/bundle/vundle/ "add vundle to the run time path
   call vundle#rc()                    "Run vundle
   """ BUNDLES {
+    Bundle 'gmarik/vundle' 
     "git wrapper
     Bundle 'tpope/vim-fugitive'
     Bundle 'Lokaltog/vim-easymotion'
@@ -305,7 +310,7 @@ endif
     ""let g:ctrlp_open_multi = '1t'
     "let g:ctrlp_working_path_mode = 0
     " The following line is used by Command-T or ctrlp and it breaks Vundle
-    "set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc
 
     Bundle 'jeetsukumaran/vim-filesearch'
 
@@ -346,6 +351,10 @@ endif
     set laststatus=2
 
     Bundle 'guicolorscheme.vim'
+
+    Bundle 'imiric/pythonhelper'
+
+    "Bundle 'henrik/vim-indexed-search'
   """ } BUNDLES
 """ } VUNDLE SETTINGS
 
