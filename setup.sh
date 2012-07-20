@@ -29,6 +29,7 @@ ln -s "$DOTFILESDIR"/screen/.screenrc ~/
 ln -s "$DOTFILESDIR"/vim/.vimrc ~/
 mkdir -p ~/.vim/bundle && git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 mkdir -p ~/.vim/colors && wget -O ~/.vim/colors/xoria256.vim "http://www.vim.org/scripts/download_script.php?src_id=15762"
+ln -s "$DOTFILESDIR"/vim/snippets ~/.vim/snippets
 # run inside vim
 # :BundleInstall
 # Command-T setup
