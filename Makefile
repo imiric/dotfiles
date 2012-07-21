@@ -4,27 +4,49 @@ DOTFILESREPO  = https://imiric@bitbucket.org/imiric/dotfiles.git
 PYTHON        = $(shell which python2.7)
 EASY_INSTALL  = $(shell which easy_install-2.7)
 VIM           = $(shell which vim)
+REQUIREMENTS  = zsh git hg vim python2.7 easy_install-2.7 ruby
 
-$(info To install the required packages on Ubuntu (enable universe), run:)
-$(info sudo apt-get install git mercurial zsh vim tmux ruby python-setuptools ruby1.8-dev build-essential)
-
-.PHONY: python zsh tmux vim mercurial git ssh
+.PHONY: install system base python zsh tmux vim mercurial git ssh
 
 all: python zsh tmux vim mercurial git ssh
 
-zsh_exists:          ; @which zsh > /dev/null
-git_exists:          ; @which git > /dev/null
-hg_exists:           ; @which hg > /dev/null
-vim_exists:          ; @which vim > /dev/null
-python_exists:       ; @which python2.7 > /dev/null
-ruby_exists:         ; @which ruby > /dev/null
-easy_install_exists: ; @which easy_install-2.7 > /dev/null
+
+ifneq (,$(findstring Arch,$(shell cat /etc/issue)))
+ DISTRO := arch
+else
+ifneq (,$(findstring Ubuntu,$(shell cat /etc/issue)))
+ DISTRO := ubuntu
+endif
+endif
+
+define arch_install
+	$(warning Not implemented)
+endef
+
+define ubuntu_install
+	$(info Remember to activate the universe repository)
+	apt-get update
+	apt-get install git mercurial zsh vim tmux ruby python-setuptools ruby1.8-dev build-essential
+endef
+
+
+define REQ_template
+ $(1)_exists: ; @which $(1) > /dev/null
+endef
+
+$(foreach req, $(REQUIREMENTS), $(eval $(call REQ_template, $(req))))
+
 
 define link
 	test -L $2 || ln -s $1 $2 ;
 endef
 
-system: python_exists vim_exists easy_install_exists
+
+install:
+	$(info This needs superuser privileges!)
+	$(call $(DISTRO)_install)
+
+system: install python2.7_exists vim_exists easy_install-2.7_exists
 	$(info This needs superuser privileges!)
 	$(call link, $(PYTHON), /usr/bin/python)
 	$(call link, $(VIM), /usr/bin/vi)
@@ -36,7 +58,7 @@ base: $(DOTFILESDIR)
 $(DOTFILESDIR): git_exists
 	test -d $(DOTFILESDIR) || git clone $(DOTFILESREPO) $(DOTFILESDIR)
 
-python: base python_exists
+python: base python2.7_exists
 	mkdir -p ~/.pythonlib
 	for f in $(DOTFILESDIR)/python/*.py; do \
 		test -L ~/.pythonlib/`basename $$f` || ln -s "$$f" ~/.pythonlib/ ; \
