@@ -6,9 +6,9 @@ EASY_INSTALL  = $(shell which easy_install-2.7)
 VIM           = $(shell which vim)
 REQUIREMENTS  = zsh git hg vim python2.7 easy_install-2.7 ruby
 
-.PHONY: install system base python zsh tmux vim mercurial git ssh
+.PHONY: install system base python zsh tmux vim mercurial git
 
-all: python zsh tmux vim mercurial git ssh
+all: python zsh tmux vim mercurial git
 
 
 ifneq (,$(findstring Arch,$(shell cat /etc/issue)))
@@ -90,7 +90,3 @@ mercurial: base hg_exists
 
 git: base
 	$(call link, $(DOTFILESDIR)/git/.gitconfig, ~/.gitconfig)
-
-ssh: base
-	mkdir -p ~/.ssh
-	$(call link, $(DOTFILESDIR)/ssh/config, ~/.ssh/config)
