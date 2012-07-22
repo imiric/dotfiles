@@ -1,6 +1,6 @@
 SHELL        := /bin/bash
 DOTFILESDIR   = ~/.files
-DOTFILESREPO  = https://imiric@bitbucket.org/imiric/dotfiles.git
+DOTFILESREPO  = ssh://git@github.com/imiric/dotfiles.git
 PYTHON        = $(shell which python2.7)
 EASY_INSTALL  = $(shell which easy_install-2.7)
 VIM           = $(shell which vim)
