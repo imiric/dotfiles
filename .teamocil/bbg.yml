@@ -1,0 +1,19 @@
+session:
+    name: 'bbg'
+    windows:
+        - name: server
+          root: '~/.virtualenvs/goodbed/src/goodbed'
+          splits:
+            - cmd: 'workon goodbed'
+        - name: vim
+          root: '~/.virtualenvs/goodbed/src/goodbed'
+          splits:
+            - cmd: ['workon goodbed', 'nocorrect tmux rename-window vim', 'vim']
+        - name: shell
+          root: '~/.virtualenvs/goodbed/src/goodbed'
+          splits:
+            - cmd: 'workon goodbed'
+        - name: db
+          root: '~/.virtualenvs/goodbed/src/goodbed'
+          splits:
+            - cmd: ['workon goodbed', 'tmux rename-window shell', 'make shell']

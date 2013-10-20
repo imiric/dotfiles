@@ -1,0 +1,138 @@
+*** PKGBUILD.orig	2012-09-23 00:41:38.285371092 +0200
+--- PKGBUILD	2012-09-23 00:41:45.674613142 +0200
+***************
+*** 4,10 ****
+  # Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
+  
+  pkgbase=vim
+! pkgname=('vim' 'gvim' 'vim-runtime')
+  _topver=7.3
+  _patchlevel=661
+  __hgrev=5884d056e1d1
+--- 4,10 ----
+  # Maintainer: Daniel J Griffiths <ghost1227@archlinux.us>
+  
+  pkgbase=vim
+! pkgname=('vim' 'vim-runtime')
+  _topver=7.3
+  _patchlevel=661
+  __hgrev=5884d056e1d1
+***************
+*** 14,32 ****
+  arch=('i686' 'x86_64')
+  license=('custom:vim')
+  url="http://www.vim.org"
+! makedepends=('gpm' 'python2' 'ruby' 'libxt' 'desktop-file-utils' 'gtk2' 'lua')
+  source=("ftp://ftp.archlinux.org/other/vim/vim-${pkgver}.tar.xz"
+          "ftp://ftp.archlinux.org/other/vim/vim-${pkgver}.tar.xz.sig"
+          'pythoncomplete.vim::http://www.vim.org/scripts/download_script.php?src_id=10872'
+          'vimrc'
+!         'archlinux.vim'
+!         'gvim.desktop')
+  sha1sums=('989e907fe9858647e762bddc927f656a03fb5226'
+            '195c7fc5163fca966ea331d8160bf2d307c1533c'
+            '4d9dcfb32874aa5467e6f06e418aeb4e675daaf2'
+            '3494baf53a63581ba69f86a81293640ff681c5c5'
+!           '25dd3c2ce436e73a367c8f73b68f7f6889682437'
+!           '4a579cf66590d711f49c5dfb4a25e5df116ff7ba')
+  
+  # source PKGBUILD && mksource
+  mksource() {
+--- 14,30 ----
+  arch=('i686' 'x86_64')
+  license=('custom:vim')
+  url="http://www.vim.org"
+! makedepends=('gpm' 'python2' 'ruby' 'libxt' 'lua')
+  source=("ftp://ftp.archlinux.org/other/vim/vim-${pkgver}.tar.xz"
+          "ftp://ftp.archlinux.org/other/vim/vim-${pkgver}.tar.xz.sig"
+          'pythoncomplete.vim::http://www.vim.org/scripts/download_script.php?src_id=10872'
+          'vimrc'
+!         'archlinux.vim')
+  sha1sums=('989e907fe9858647e762bddc927f656a03fb5226'
+            '195c7fc5163fca966ea331d8160bf2d307c1533c'
+            '4d9dcfb32874aa5467e6f06e418aeb4e675daaf2'
+            '3494baf53a63581ba69f86a81293640ff681c5c5'
+!           '25dd3c2ce436e73a367c8f73b68f7f6889682437')
+  
+  # source PKGBUILD && mksource
+  mksource() {
+***************
+*** 75,93 ****
+      --with-features=big --with-compiledby=ArchLinux \
+      --enable-gpm --enable-acl --with-x=no \
+      --disable-gui --enable-multibyte --enable-cscope \
+!     --disable-netbeans --enable-perlinterp --disable-pythoninterp \
+!     --disable-python3interp --disable-rubyinterp --disable-luainterp
+! 
+!   make
+! 
+!   cd "${srcdir}"/gvim-build
+! 
+!   ./configure --prefix=/usr --localstatedir=/var/lib/vim \
+!     --with-features=big --with-compiledby=ArchLinux \
+!     --enable-gpm --enable-acl --with-x=yes \
+!     --enable-gui=gtk2 --enable-multibyte --enable-cscope \
+!     --enable-netbeans --enable-perlinterp --enable-pythoninterp \
+!     --disable-python3interp --enable-rubyinterp --enable-luainterp
+  
+    make
+  }
+--- 73,81 ----
+      --with-features=big --with-compiledby=ArchLinux \
+      --enable-gpm --enable-acl --with-x=no \
+      --disable-gui --enable-multibyte --enable-cscope \
+!     --disable-netbeans --enable-perlinterp --enable-pythoninterp \
+!     --disable-python3interp --enable-rubyinterp --enable-luainterp \
+!     --with-python-config-dir=/usr/lib/python2.7/config
+  
+    make
+  }
+***************
+*** 123,168 ****
+      rm -f evim.1    # this does not make sense if we have no GUI
+    done
+  
+-   # Runtime provided by runtime package
+-   rm -r "${pkgdir}"/usr/share/vim
+- 
+    # license
+    install -Dm644 "${srcdir}"/vim-${pkgver}/runtime/doc/uganda.txt \
+      "${pkgdir}"/usr/share/licenses/${pkgname}/license.txt
+- }
+- 
+- package_gvim() {
+-   pkgdesc='Vi Improved, a highly configurable, improved version of the vi text editor (with advanced features, such as a GUI)'
+-   depends=("vim-runtime=${pkgver}-${pkgrel}" 'gpm' 'ruby' 'libxt'
+-            'desktop-file-utils' 'gtk2' 'lua' 'python2')
+-   provides=("vim=${pkgver}-${pkgrel}")
+-   conflicts=('vim')
+-   install=gvim.install
+- 
+-   cd "${srcdir}"/gvim-build
+-   make -j1 VIMRCLOC=/etc DESTDIR="${pkgdir}" install
+- 
+-   # provided by (n)vi in core
+-   rm "${pkgdir}"/usr/bin/{ex,view}
+- 
+-   # delete some manpages
+-   find "${pkgdir}"/usr/share/man -type d -name 'man1' 2>/dev/null | \
+-     while read _mandir; do
+-     cd ${_mandir}
+-     rm -f ex.1 view.1 # provided by (n)vi
+-   done
+  
+    # Move the runtime for later packaging
+    mv "${pkgdir}"/usr/share/vim "${srcdir}"/runtime-install
+- 
+-   # freedesktop links
+-   install -Dm644 "${srcdir}"/gvim.desktop \
+-     "${pkgdir}"/usr/share/applications/gvim.desktop
+-   install -Dm644 runtime/vim48x48.png "${pkgdir}"/usr/share/pixmaps/gvim.png
+- 
+-   # license
+-    install -Dm644 "${srcdir}"/vim-${pkgver}/runtime/doc/uganda.txt \
+-     "${pkgdir}"/usr/share/licenses/${pkgname}/license.txt
+  }
+  
+  package_vim-runtime() {
+--- 111,122 ----

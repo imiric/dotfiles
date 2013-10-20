@@ -1,0 +1,36 @@
+##############################################
+#  Settings
+##############################################
+background no
+out_to_x no
+out_to_console yes
+update_interval 1
+total_run_times 0
+uppercase no
+short_units yes
+use_spacer none
+if_up_strictness address
+##############################################
+#  Output
+##############################################
+TEXT
+^s[right;\#3a3a3a; | ]\
+^s[right;\#808080;cpu:] ^s[right;\#0087af; ${cpu}% ] ^g[right;80;12;${cpu};100;\#3a3a3a;\#e07c00;ckycpu]\
+^s[right;\#3a3a3a; | ]\
+^s[right;\#808080;temp:]${if_match ${hwmon temp 4} >= 75 }^s[right;\#FF0000; ${hwmon temp 4}C!]${else}^s[right;\#537814; ${hwmon temp 4}C]${endif}\
+^s[right;\#3a3a3a; | ]\
+^s[right;\#808080;ram:]\
+^s[right;${if_match ${memperc} >= 80 }\#FF0000${else}\#537814${endif}; ${memperc}%] ^s[right;\#808080; ${mem}]\
+^s[right;\#3a3a3a; | ]\
+^s[right;\#808080;ssd:] ^s[right;\#0087af; ${fs_used_perc /}% ] ^p[right;8;10;0;${fs_used_perc /};100;\#3a3a3a;\#808080;ckyhdd]\
+^s[right;\#3a3a3a; | ]\
+${if_up wlp7s0}\
+^s[right;\#808080;net: ]\
+^g[right;40;12;${downspeedf wlp7s0};550;\#3a3a3a;\#537814;netdown]\
+^g[right;40;12;${upspeedf wlp7s0};120;\#3a3a3a;\#E07C00;netup]\
+^s[right;\#3a3a3a; | ]\
+${endif}\
+^s[right;\#808080;bat:] ^s[right;\#0087af; ${battery_percent BAT1}% ]\
+${if_match ${battery_percent BAT1} > 20 }^p[right;40;8;1;${battery_percent BAT1};100;\#222222;\#537814;ckybat] ${else}^p[right;40;8;1;${battery_percent BAT1};100;\#222222;\#CC0000;ckybat] ${endif}\
+^s[right;\#3a3a3a; | ]\
+^s[right;\#808080;${time %Y-%m-%d %T}] ^s[right;\#3a3a3a; | ]

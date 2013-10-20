@@ -1,0 +1,9 @@
+# purge root backup every 1st of the month
+0 2 1 * * duply root backup_verify_purge --force >> /tmp/duply_root.log
+# run root backup every monday
+0 3 * * 1 duply root backup >> /tmp/duply_root.log
+
+# purge home backup every 1st of the month
+30 2 1 * * duply home backup_verify_purge --force >> /tmp/duply_home.log 
+# run root backup daily
+30 3 * * * duply home backup >> /tmp/duply_home.log

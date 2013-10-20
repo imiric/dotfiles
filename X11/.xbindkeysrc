@@ -1,0 +1,23 @@
+#keystate_numlock = enable
+#keystate_scrolllock = enable
+#keystate_capslock = enable
+
+#terminal
+"roxterm"
+    m:0x40 + c:28
+    Mod4 + t 
+
+#xkill
+"xkill"
+    m:0xc + c:9
+    Control+Alt + Escape 
+
+#Home
+"nautilus"
+    m:0x40 + c:26
+    Mod4 + e 
+
+#Close Window
+"xdotool getactivewindow key Alt+F4"
+    m:0x40 + c:24
+    Mod4 + q 

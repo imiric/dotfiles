@@ -6,9 +6,9 @@ EASY_INSTALL  = $(shell which easy_install-2.7)
 VIM           = $(shell which vim)
 REQUIREMENTS  = zsh git hg vim python2.7 easy_install-2.7 ruby
 
-.PHONY: install system base python zsh tmux vim mercurial git
+.PHONY: install system base python zsh tmux powerline vim mercurial git wmfs
 
-all: python zsh tmux vim mercurial git
+all: python zsh tmux powerline vim mercurial git misc wmfs
 
 
 ifneq (,$(findstring Arch,$(shell cat /etc/issue)))
@@ -20,13 +20,13 @@ endif
 endif
 
 define arch_install
-	$(warning Not implemented)
+	pacman -Sy git mercurial zsh vim tmux ruby python2 python2-distribute
 endef
 
 define ubuntu_install
 	$(info Remember to activate the universe repository)
 	apt-get update
-	apt-get install git mercurial zsh vim tmux ruby python-setuptools ruby1.8-dev build-essential
+	apt-get install git mercurial zsh vim tmux ruby python-setuptools ruby1.9.1-dev build-essential
 endef
 
 
@@ -51,7 +51,12 @@ system: install python2.7_exists vim_exists easy_install-2.7_exists
 	$(call link, $(PYTHON), /usr/bin/python)
 	$(call link, $(VIM), /usr/bin/vi)
 	$(EASY_INSTALL) pip
-	pip install virtualenv virtualenvwrapper
+	pip install virtualenv virtualenvwrapper pyflakes
+	# Installs keyboard layout
+	# FIXME: $(DOTFILESDIR) equals /root/.files here. Use absolute path above?
+	#test -d /usr/share/X11/xkb/symbols && $(call link, $(DOTFILESDIR)/xkb/us-intl-gajscript, /usr/share/X11/xkb/symbols/us-intl-gajscript)
+	#test -f /usr/share/X11/xkb/rules/evdev.xml && patch -p0 < $(DOTFILESDIR)/xkb/evdev.xml.patch
+	#test -f /usr/share/X11/xkb/rules/evdev.lst && patch -p0 < $(DOTFILESDIR)/xkb/evdev.lst.patch
 
 base: $(DOTFILESDIR)
 
@@ -68,9 +73,14 @@ zsh: base zsh_exists
 	test -d ~/.oh-my-zsh || git clone git://github.com/sjl/oh-my-zsh.git ~/.oh-my-zsh ; \
 	$(call link, $(DOTFILESDIR)/zsh/mns.zsh-theme, ~/.oh-my-zsh/themes/mns.zsh-theme)
 	$(call link, $(DOTFILESDIR)/zsh/.zshrc, ~/.zshrc)
+	$(call link, $(DOTFILESDIR)/zsh/.zshenv, ~/.zshenv)
 
 tmux: base
 	$(call link, $(DOTFILESDIR)/tmux/.tmux.conf, ~/.tmux.conf)
+
+powerline: base
+	mkdir -p ~/.config/
+	$(call link, $(DOTFILESDIR)/powerline, ~/.config/powerline)
 
 vim: base vim_exists ruby_exists
 	$(call link, $(DOTFILESDIR)/vim/.vimrc, ~/.vimrc)
@@ -82,7 +92,7 @@ vim: base vim_exists ruby_exists
 	test -f ~/.vim/bundle/Command-T/ruby/command-t/ext.so || (cd ~/.vim/bundle/Command-T/ruby/command-t/ && ruby extconf.rb && make)
 
 mercurial: base hg_exists
-	test -d ~/.hgext/hgshelve || (mkdir -p ~/.hgext && hg clone https://bitbucket.org/tksoh/hgshelve ~/.hgext/hgshelve)
+	test -d ~/.hgext/hgshelve || (mkdir -p ~/.hgext && hg clone https://bitbucket.org/astiob/hgshelve ~/.hgext/hgshelve)
 	test -d ~/.hgext/hg-prompt || hg clone https://bitbucket.org/sjl/hg-prompt ~/.hgext/hg-prompt
 	test -d ~/.hgext/hg-contains || hg clone https://bitbucket.org/resi/hg-contains ~/.hgext/hg-contains
 	test -d ~/.hgext/mercurial-cli-templates || hg clone https://bitbucket.org/sjl/mercurial-cli-templates ~/.hgext/mercurial-cli-templates
@@ -90,3 +100,15 @@ mercurial: base hg_exists
 
 git: base
 	$(call link, $(DOTFILESDIR)/git/.gitconfig, ~/.gitconfig)
+
+teamocil: base ruby_exists
+	gem install teamocil
+	$(call link, $(DOTFILESDIR)/.teamocil, ~/.teamocil)
+
+wmfs: base
+	test -d ~/.config/wmfs || (mkdir -p ~/.config/wmfs)
+	$(call link, $(DOTFILESDIR)/wmfs2/wmfsrc, ~/.config/wmfs/wmfsrc)
+	$(call link, $(DOTFILESDIR)/wmfs2/conkyrc, ~/.config/wmfs/conkyrc)
+
+misc: base
+	$(call link, $(DOTFILESDIR)/.xbindkeysrc, ~/.xbindkeysrc)

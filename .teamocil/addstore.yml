@@ -1,0 +1,23 @@
+session:
+    name: 'addstore'
+    windows:
+        - name: server
+          root: '~/.virtualenvs/addstore/src/bbg_addstore'
+          splits:
+            - cmd: 'workon addstore'
+        - name: vim
+          root: '~/.virtualenvs/addstore/src/bbg_addstore'
+          splits:
+            - cmd: ['workon addstore', 'nocorrect tmux rename-window vim', 'vim']
+        - name: shell
+          root: '~/.virtualenvs/addstore/src/bbg_addstore'
+          splits:
+            - cmd: 'workon addstore'
+        - name: db
+          root: '~/.virtualenvs/addstore/src/bbg_addstore'
+          splits:
+            - cmd: ['workon addstore', 'tmux rename-window shell', 'make shell']
+        - name: celery
+          root: '~/.virtualenvs/addstore/src/bbg_addstore'
+          splits:
+            - cmd: ['workon addstore', 'tmux rename-window celery', 'make celeryd']

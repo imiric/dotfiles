@@ -9,6 +9,9 @@ set nocompatible               " be iMproved
 
 set pastetoggle=<F2>
 
+" remove trailing whitespace from a file
+nnoremap <silent> <F3> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
 " close buffers with Ctrl-F4 using bufferkill
 nnoremap <silent> <F4> :BD<CR>
 
@@ -33,6 +36,8 @@ command! W w
 command! Wq wq
 command! WQ wq
 
+"set rtp+=/home/ivan/src/powerline/powerline/bindings/vim
+
 "ctrl-hjkl switches windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -52,7 +57,8 @@ vnoremap <F1> <ESC>
 nnoremap ; :
 
 " Execute file being edited with <Shift> + e:
-map <buffer> <S-e> :w<CR>:!/usr/bin/env python %<CR>
+"map <buffer> <S-e> :w<CR>:!/usr/bin/env python %<CR>
+nmap <buffer> <S-e> :w<CR>:!chmod +x %:p<CR>:!time %:p<CR>
 
 " Folding
 "set foldmethod=indent
@@ -63,6 +69,14 @@ map <buffer> <S-e> :w<CR>:!/usr/bin/env python %<CR>
 " NERDCommenter
 nnoremap <Bslash><Bslash> :call NERDComment('n', 'toggle')<cr>
 vnoremap <Bslash><Bslash> :call NERDComment('x', 'toggle')<cr>
+
+" global yank/paste
+vmap <silent> <leader>y "xy<CR>:wviminfo! ~/.viminfo<CR>
+nmap <silent> <leader>p :rviminfo! ~/.viminfo<CR>"xp
+
+" vim-latex
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor = "latex"
 
 set noerrorbells                  " I
 set vb t_vb=                      " REALLY
@@ -143,6 +157,8 @@ set mouse=a         " Enable the use of the mouse.
 " Adding a column indicator and changing its color
 set colorcolumn=85
 au ColorScheme * highlight ColorColumn ctermbg=8
+autocmd ColorScheme * highlight Normal ctermbg=none
+autocmd ColorScheme * highlight NonText ctermbg=none
 
 set nowrap
 
@@ -268,7 +284,7 @@ endif
     nnoremap <leader>d :NERDTreeToggle<cr>
 
     "ring of copied text
-    Bundle 'YankRing.vim'
+    Bundle 'vim-scripts/YankRing.vim'
     let g:yankring_history_file = '.yankring_history'
     let g:yankring_manual_clipboard_check = 0
 
@@ -298,7 +314,9 @@ endif
     "the solarized color scheme
     Bundle "https://github.com/altercation/vim-colors-solarized.git"
 
-    Bundle 'msanders/snipmate.vim'
+    Bundle "MarcWeber/vim-addon-mw-utils"
+    Bundle "tomtom/tlib_vim"
+    Bundle 'garbas/vim-snipmate'
 
     Bundle 'wincent/Command-T'
     nnoremap <leader>t :CommandT<cr>
@@ -310,7 +328,7 @@ endif
     ""let g:ctrlp_open_multi = '1t'
     "let g:ctrlp_working_path_mode = 0
     " The following line is used by Command-T or ctrlp and it breaks Vundle
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*.pyc,*/venv/*,*/node_modules/*
 
     Bundle 'jeetsukumaran/vim-filesearch'
 
@@ -319,8 +337,14 @@ endif
     "Bundle 'docunext/closetag.vim'
     Bundle 'tpope/vim-ragtag'
 
-    Bundle 'kevinw/pyflakes-vim'
-    let g:pyflakes_use_quickfix = 0
+    "Bundle 'kevinw/pyflakes-vim'
+    "let g:pyflakes_use_quickfix = 0
+    Bundle 'scrooloose/syntastic'
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    let g:syntastic_python_checker = "pyflakes"
+    let g:syntastic_check_on_open=1
 
     Bundle 'scrooloose/nerdcommenter'
 
@@ -346,13 +370,19 @@ endif
 
     Bundle 'django.vim'
 
-    Bundle 'Lokaltog/vim-powerline'
-    "let g:Powerline_symbols = 'fancy'
-    set laststatus=2
-
     Bundle 'guicolorscheme.vim'
 
     Bundle 'imiric/pythonhelper'
+
+    Bundle 'vim-scripts/hgrev'
+    let g:hgrevAutoUpdate = 1
+
+    Bundle 'plasticboy/vim-markdown'
+
+    Bundle 'mattn/webapi-vim'
+    Bundle 'mattn/gist-vim'
+    let g:gist_post_private = 1
+    let g:gist_open_browser_after_post = 1
 
     "Bundle 'henrik/vim-indexed-search'
   """ } BUNDLES
